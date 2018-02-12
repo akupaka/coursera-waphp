@@ -38,6 +38,10 @@
       <p><label>Password: <input type="password" name="pass"/></label></p>
       <input type="submit" value="Log in"/>
       <input type="submit" name="cancel" value="Cancel"/>
+      <p style="font-style: italic">
+        Select next line for help<br>
+        <span style="color: white">who/php123</span>
+      </p>
     </form>
   </body>
 </html>
