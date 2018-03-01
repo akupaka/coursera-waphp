@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  webserver:
+    build: ./webserver
+    image: php7-apache-ext
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ../docroot:/var/www/html
+    networks:
+      - devnet
+    links:
+      - db
+
+  db:
+    image: mysql:5.7
+#    ports:
+#      - "3306:3306"
+    volumes:
+      - ./db:/var/lib/mysql
+    networks:
+      - devnet
+    environment:
+      - MYSQL_ROOT_PASSWORD=docker
+#      - MYSQL_DATABASE=somedb
+
+  pma:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8006:80"
+    networks:
+      - devnet
+    links:
+      - db
+
+networks:
+  devnet:
