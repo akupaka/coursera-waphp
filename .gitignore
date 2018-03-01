@@ -8,6 +8,4 @@ nbdist/
 .nb-gradle/
 
 # docker
-/docker/db/**
-
-!readme*
+/docker/db/
