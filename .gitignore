@@ -9,3 +9,5 @@ nbdist/
 
 # docker
 /docker/db/**
+
+!readme*
