@@ -4,7 +4,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $userPass = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_STRING);
   $authTry = (isset($userName) && ($userName != "")) && (isset($userPass) && ($userPass != ""));
   if (!$authTry) {
-    $errorAuth = 'User name and password are required';
+    $errorAuth = 'Email and password are required';
+  } else if (strpos($userName, '@') === false) {
+    $errorAuth = 'Email must have an at-sign (@)';
   } else {
     # $authOK = false;
     $salt = 'XyZzy12*_';
@@ -13,8 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $authOK = $stored_hash === $passMD5;
     if (!$authOK) {
       $errorAuth = 'Incorrect password';
+      error_log("Login fail $userName $passMD5");
     } else {
-      header("Location: game.php?name=" . urlencode($userName));
+      header("Location: autos.php?name=" . urlencode($userName));
+      error_log("Login success $userName");
     }
   }
 }
@@ -22,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Rock-Paper-Scissors by Roman Kozar</title>
+    <title>AutosDB by Roman Kozar</title>
     <style>
       .alert {
         color: darkred;
@@ -31,17 +35,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
   </head>
   <body>
-    <h1>Welcome to the Rock-Paper-Scissors by Roman Kozar</h1>
+    <h1>Welcome to the AutosDB web application</h1>
     <form method="POST">
       <h2>Login form</h2>
-      <p class="alert" style="display: <?= isset($errorAuth)?"block":"none" ?>"><?= $errorAuth ?></p>
-      <p><label>Name: <input type="text" name="who"/></label></p>
+      <p class="alert" style="display: <?= isset($errorAuth)?'block':'none' ?>"><?= $errorAuth ?></p>
+      <p><label>Email: <input type="text" name="who"/></label></p>
       <p><label>Password: <input type="password" name="pass"/></label></p>
       <input type="submit" value="Log in"/>
       <input type="submit" name="cancel" value="Cancel"/>
       <p style="font-style: italic">
         Select next line for help<br>
-        <span style="color: white">who/php123</span>
+        <span style="color: white">who@where/php123</span>
       </p>
     </form>
   </body>
