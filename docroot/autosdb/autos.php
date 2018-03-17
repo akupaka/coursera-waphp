@@ -87,7 +87,7 @@ if (isset($_POST['rem_auto'])) {
       </pre>
     <?php endif; ?>
 
-    <h1>Welcome to the AutosDB web application</h1>
+    <h1>Welcome <?= $userName ?> to the AutosDB web application</h1>
     <form method="POST">
       <p><input type="submit" value="Logout" name="logout"></p>
     </form>

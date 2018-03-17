@@ -1,4 +1,6 @@
 <?php
+$debug = true;
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $userName = filter_input(INPUT_POST, 'who', FILTER_SANITIZE_STRING);
   $userPass = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_STRING);
@@ -48,5 +50,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <span style="color: white">who@where/php123</span>
       </p>
     </form>
+    <?php if ($debug): ?>
+      <pre>
+        <?php var_dump($_GET); ?>
+        <?php var_dump($_POST); ?>
+        <?= var_dump($userName) ?>
+        <?= var_dump($userPass) ?>
+        <?= var_dump($authTry) ?>
+      </pre>
+    <?php endif; ?>
   </body>
 </html>
