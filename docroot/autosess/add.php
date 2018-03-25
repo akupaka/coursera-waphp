@@ -11,6 +11,10 @@ if (!isset($_SESSION['name'])) {
 
 include_once 'pdo.php';
 
+if (isset($_POST['cancel'])) {
+  header('Location: view.php');
+  return;
+}
 if (isset($_POST['add_auto'])) {
   /*
   $make = filter_input(INPUT_POST, 'make', FILTER_SANITIZE_STRING);
@@ -101,6 +105,7 @@ if (isset($_POST['add_auto'])) {
         </span>
         <span class="td">
           <input type="submit" value="Add" name="add_auto">
+          <input type="submit" value="Cancel" name="cancel">
         </span>
       </form>
     </div>
